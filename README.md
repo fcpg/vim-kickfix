@@ -17,29 +17,29 @@ quickfix list is updated accordingly.
 
 Other commands:
 
-*:[range]QDeleteLine*
+*:[range]QDeleteLine*  
 Delete current line, or lines in range.
 
-*:QFilterName[!] {pattern}*
+*:QFilterName[!] {pattern}*  
 Keep only filenames matching pattern. Discard them if [!].
 
-*:QFilterContent[!] {pattern}*
+*:QFilterContent[!] {pattern}*  
 Keep only files whose content matches pattern. Discard them if [!].
 
-*:QInfo*
+*:QInfo*  
 Show number of files and number of entries in the quickfix list.
 
-*:QLoad {path}*
+*:QLoad {path}*  
 Load quickfix from path. Quickfix content can be saved as is with `:w {path}`.
 
 Mappings:
 
-*<Plug>(KickfixPreview)*
+*<Plug>(KickfixPreview)*  
 Open quickfix entry in preview window. Buffer-local.
 
 Options:
 
-*g:kickfix_zebra*
+*g:kickfix_zebra*  
 Set to zero to disable zebra highlighting in quickfix window.
 
 Configuration Example:
