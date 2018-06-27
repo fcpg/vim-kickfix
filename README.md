@@ -34,7 +34,7 @@ Load quickfix from path. Quickfix content can be saved as is with `:w {path}`.
 
 Mappings:
 
-*<Plug>(KickfixPreview)*  
+*&lt;Plug>(KickfixPreview)*  
 Open quickfix entry in preview window. Buffer-local.
 
 Options:
