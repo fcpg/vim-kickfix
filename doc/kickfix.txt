@@ -1,0 +1,129 @@
+*kickfix.txt*              Vim Quickfix Editing                         *kickfix*
+
+                            kickfix MANUAL
+
+1. About kickfix                                   |kickfix-about|
+2. Quick Start                                     |kickfix-quickstart|
+3. Commands                                        |kickfix-commands|
+4. Plug Mappings                                   |kickfix-plug-mappings|
+5. Options                                         |kickfix-options|
+6. Highlight Groups                                |kickfix-hl|
+7. Configuration Example                           |kickfix-example|
+8. Changelog                                       |kickfix-changelog|
+9. Contribute                                      |kickfix-contribute|
+A. License                                         |kickfix-license|
+
+=============================================================================
+ABOUT KICKFIX                                                   *kickfix-about*
+
+Kickfix lets you filter, discard and save entries from the quickfix list.
+
+Shape the quickfix as you like, discard unwanted matches and possibly
+save it for later use once you're done.
+
+Extra "zebra" highlighting is provided for the quickfix buffer.
+
+=============================================================================
+QUICK START                                                *kickfix-quickstart*
+
+1. Install the plugin Eg. with Pathogen:
+>
+   cd ~/.vim/bundle && git clone https://github.com/fcpg/vim-kickfix
+<
+   or using vim8 package management:
+>
+   cd ~/.vim/pack/std/start && git clone https://github.com/fcpg/vim-kickfix
+<
+2. Get a quickfix list, eg. with |:grep| or |:make|
+
+3. Delete lines with |d|{motion}, |dd| or |d| in visual mode.
+   Filter in/out lines with |:QFilterName| or |:QFilterContent|.
+
+4. Save the quickfix buffer content in a file; it can be loaded back with
+   |:QLoad|
+
+=============================================================================
+COMMANDS                                                     *kickfix-commands*
+
+:[range]QDeleteLine                                              *:QDeleteLine*
+  Delete lines from the quickfix buffer and the corresponding entries
+  from the quickfix list.
+
+:QFilterName[!] {pattern}                                        *:QFilterName*
+  Keep only filenames matching {pattern}.
+  Discard them if [!].
+
+:QFilterContent[!] {pattern}                                  *:QFilterContent*
+  Keep only files whose content matches {pattern}.
+  Discard them if [!].
+
+:QInfo                                                                 *:QInfo*
+  Show number of files and number of entries in the quickfix list.
+
+:QLoad {path}                                                          *:QLoad*
+  Load quickfix from {path}.
+  Quickfix content can be saved as is with `:w {path}`.
+
+=============================================================================
+PLUG MAPPINGS                                           *kickfix-plug-mappings*
+
+<Plug>(KickfixPreview)
+  Open quickfix entry in preview window. Buffer-local.
+  Cf. |kickfix-example|
+
+=============================================================================
+OPTIONS                                                       *kickfix-options*
+
+g:kickfix_zebra                                               *g:kickfix_zebra*
+  Set to zero to deactivate kickfix extra syntax highlighting.
+
+=============================================================================
+HIGHLIGHT GROUPS                                                   *kickfix-hl*
+
+Kickfix provides extra highlighting for the quickfix buffer.
+Lines are "zebra-striped", grouped by file; thus there are two
+variants for each highlight group (dark/light, by default).
+
+qfZebra1                                                          *hl-qfZebra1*
+qfZebra2                                                          *hl-qfZebra2*
+  All lines belonging to the same file.
+
+qfFileName1                                                    *hl-qfFileName1*
+qfFileName2                                                    *hl-qfFileName2*
+  The filename, on each successive lines.
+
+qfqfZebraStart1                                            *hl-qfqfZebraStart1*
+qfqfZebraStart2                                            *hl-qfqfZebraStart2*
+  The filename when it occurs for the first time.
+  Default to qfFileName1 / qfFileName2.
+
+=============================================================================
+CONFIGURATION EXAMPLE                                         *kickfix-example*
+
+In .vim/after/ftplugin/qf.vim:
+>
+  nmap <silent><buffer>  p      <Plug>(KickfixPreview)
+  nmap <silent><buffer>  <C-g>  :<C-u>QInfo<cr>
+<
+In .vim/vimrc:
+>
+  hi link qfFileName1 Statement
+  hi link qfFileName2 PreProc
+<
+=============================================================================
+CHANGELOG                                                   *kickfix-changelog*
+
+[1.0] - 2018-06-29
+  - Initial release
+
+=============================================================================
+CONTRIBUTE                                                 *kickfix-contribute*
+
+Contribute on [Github](https://github.com/fcpg/vim-kickfix)
+
+=============================================================================
+LICENSE                                                       *kickfix-license*
+
+[Attribution-ShareAlike 4.0 Int.](https://creativecommons.org/licenses/by-sa/4.0/)
+
+ vim: set expandtab sts=2 ts=2 sw=2 tw=78 ft=help norl:

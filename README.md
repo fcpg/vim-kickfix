@@ -5,56 +5,16 @@ Vim-Kickfix
 
 Kickfix lets you filter, discard and save entries from the quickfix list.
 
-It's a simple, crude but reasonably effective tool to shape the quickfix as
-you like, discarding unwanted matches and possibly saving it once you're done.
+It's a simple but reasonably effective tool to shape the quickfix as you like,
+discarding unwanted matches and possibly saving it once you're done.
 
 [![asciicast](https://asciinema.org/a/iIfNKV7cK1UqdBnSAhoZksNLe.png)](https://asciinema.org/a/iIfNKV7cK1UqdBnSAhoZksNLe)
 
+It also provides "zebra-striped" syntax highlighting, grouping lines by file.
+
 Usage
 ------
-Entries can be deleted with the `d` normal command in the quickfix window; the
-quickfix list is updated accordingly.
-
-Other commands:
-
-*:[range]QDeleteLine*  
-Delete current line, or lines in range.
-
-*:QFilterName[!] {pattern}*  
-Keep only filenames matching pattern. Discard them if [!].
-
-*:QFilterContent[!] {pattern}*  
-Keep only files whose content matches pattern. Discard them if [!].
-
-*:QInfo*  
-Show number of files and number of entries in the quickfix list.
-
-*:QLoad {path}*  
-Load quickfix from path. Quickfix content can be saved as is with `:w {path}`.
-
-Mappings:
-
-*&lt;Plug>(KickfixPreview)*  
-Open quickfix entry in preview window. Buffer-local.
-
-Options:
-
-*g:kickfix_zebra*  
-Set to zero to disable zebra highlighting in quickfix window.
-
-Configuration Example:
-
-```
-(in .vim/after/ftplugin/qf.vim):
-
-  nmap <silent><buffer>  p  <Plug>(KickfixPreview)
-  nmap <silent><buffer>  <C-g>  :<C-u>QInfo<cr>
-
-(in .vim/vimrc):
-
-  hi link qfFileName1 Statement
-  hi link qfFileName2 PreProc
-```
+See [the documentation](doc/kickfix.txt).
 
 Installation
 -------------
@@ -67,7 +27,6 @@ Use your favorite method:
 
 Pluginophobia
 --------------
-
 If you don't like plugins, feel free to steal snippets into your vimrc.
 
 License

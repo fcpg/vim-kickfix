@@ -4,22 +4,18 @@ set cpo&vim
 
 
 " Preview {{{1
-" open the current entry in th preview window
-" (from romainl/vim-qf)
+" open the current entry in the preview window
 function kickfix#Preview() abort
-  let curlist = getqflist()
   let curline = getline(line('.'))
-  let curfile = fnameescape(substitute(curline, '|.*$', '', ''))
-  if curline =~ '|\d\+'
-    let curpos = substitute(curline, '^\(.\{-}|\)\(\d\+\)\(.*\)', '\2', '')
-    exe "pedit +".curpos curfile
-  else
-    exe "pedit " curfile
-  endif
+  let curfile = fnameescape(matchstr(curline, '^[^|]\+'))
+  let curpos  = curline =~ '|\d\+'
+                \ ? "+".matchstr(curline, '|\zs\d\+')
+                \ : ""
+  exe "pedit" curpos curfile
 endfun
 
 " QFilterName {{{1
-" Filter in/out quickfix entries with regexp
+" Filter in/out quickfix entries by filename
 function! kickfix#QFilterName(rx, filter_in) abort
   let nqf = []
   let g:oldqf = getqflist()
@@ -43,7 +39,7 @@ function! kickfix#QFilterName(rx, filter_in) abort
 endfun
 
 " QFilterContent {{{1
-" Filter in/out quickfix entries with regexp
+" Filter in/out quickfix entries by content
 function! kickfix#QFilterContent(rx, filter_in) abort
   let nqf = []
   let g:oldqf = getqflist()
