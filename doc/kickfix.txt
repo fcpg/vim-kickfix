@@ -21,7 +21,7 @@ Kickfix lets you filter, discard and save entries from the quickfix list.
 Shape the quickfix as you like, discard unwanted matches and possibly
 save it for later use once you're done.
 
-Extra "zebra" highlighting is provided for the quickfix buffer.
+Extra "zebra" highlighting and folding is provided for the quickfix buffer.
 
 =============================================================================
 QUICK START                                                *kickfix-quickstart*
@@ -36,10 +36,12 @@ QUICK START                                                *kickfix-quickstart*
 <
 2. Get a quickfix list, eg. with |:grep| or |:make|
 
-3. Delete lines with |d|{motion}, |dd| or |d| in visual mode.
+3. Enable folding (`zi`) to fold lines from same files.
+
+4. Delete lines with |d|{motion}, |dd| or |d| in visual mode.
    Filter in/out lines with |:QFilterName| or |:QFilterContent|.
 
-4. Save the quickfix buffer content in a file; it can be loaded back with
+5. Save the quickfix buffer content in a file; it can be loaded back with
    |:QLoad|
 
 =============================================================================

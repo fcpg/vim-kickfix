@@ -92,5 +92,35 @@ function! kickfix#QLoad(file) abort
   let &efm = oldefm
 endfun
 
+" FoldText {{{1
+" Function for 'foldtext in quickfix
+function! kickfix#FoldText() abort
+  let numlines = v:foldend - v:foldstart + 1
+  let filename = matchstr(getline(v:foldstart), '[^|]*')
+  let filelen  = strchars(filename)
+
+  if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+    let myfoldchar = '─'
+  else
+    let myfoldchar = '-'
+  endif
+
+  let spacer_left  = repeat(myfoldchar, 4)
+  let spacer_mid   = repeat(myfoldchar, 5)
+  let spacer_right = repeat(myfoldchar, 4)
+
+  if filelen > 50
+    " extract the last path components so that total length < 47
+    let filename_end = strcharpart(filename, filelen - 47)
+    let ssl = exists('+shellslash') ? &shellslash : '/'
+    let filename_upto50 = "..." . matchstr(filename_end, ssl.'.*') 
+  else
+    let filename_upto50 = filename
+  endif
+
+  let txt = printf("+%s %-50.50s %s (%4d lines) %s",
+        \ spacer_left, filename_upto50, spacer_mid, numlines, spacer_right)
+  return txt
+endfun
 
 let &cpo = s:save_cpo

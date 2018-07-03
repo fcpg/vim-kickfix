@@ -12,8 +12,8 @@ syn match  qfFileName2  /^[^|]*/ nextgroup=qfSeparator contained
 syn match  qfZebraLineNr  /|[^|]*|/ contains=qfSeparator,qfLineNr,qfError contained nextgroup=qfSkip
 syn match  qfSkip /.*$/ excludenl contains=NONE transparent
 
-syn region  qfZebra1  matchgroup=qfZebraStart1 start=/^\z([^|]\+\)/ end=/\n\(\z1|\)\@!/ nextgroup=qfZebra2 skipnl keepend contains=qfFileName1,qfZebraLineNr
-syn region  qfZebra2  matchgroup=qfZebraStart2 start=/^\z([^|]\+\)/ end=/\n\(\z1|\)\@!/ nextgroup=qfZebra1 skipnl keepend contains=qfFileName2,qfZebraLineNr
+syn region  qfZebra1  matchgroup=qfZebraStart1 start=/^\z([^|]\+\)/ end=/\n\(\z1|\)\@!/ nextgroup=qfZebra2 skipnl keepend fold contains=qfFileName1,qfZebraLineNr
+syn region  qfZebra2  matchgroup=qfZebraStart2 start=/^\z([^|]\+\)/ end=/\n\(\z1|\)\@!/ nextgroup=qfZebra1 skipnl keepend fold contains=qfFileName2,qfZebraLineNr
 
 
 hi def qfZebra1 guibg=#222222 ctermbg=240

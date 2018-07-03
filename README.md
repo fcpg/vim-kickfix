@@ -10,7 +10,8 @@ discarding unwanted matches and possibly saving it once you're done.
 
 [![asciicast](https://asciinema.org/a/iIfNKV7cK1UqdBnSAhoZksNLe.png)](https://asciinema.org/a/iIfNKV7cK1UqdBnSAhoZksNLe)
 
-It also provides "zebra-striped" syntax highlighting, grouping lines by file.
+It also provides "zebra-striped" syntax highlighting and folding, grouping
+lines by file.
 
 Usage
 ------
