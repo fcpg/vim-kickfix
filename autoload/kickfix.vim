@@ -44,13 +44,14 @@ function! kickfix#QFilterContent(rx, filter_in) abort
   let nqf = []
   let g:oldqf = getqflist()
   let [kept, removed, nobuf] = [0, 0, 0]
+  let winid = win_getid()
   1split
   for f in g:oldqf
     if !get(f, 'bufnr', 0)
       let nobuf += 1
       continue
     endif
-    exe 'b' f.bufnr
+    exe 'noauto b' f.bufnr
     if (a:filter_in && search(a:rx, 'wn'))
           \ || (!a:filter_in && !search(a:rx, 'wn'))
       call add(nqf, copy(f))
@@ -62,6 +63,9 @@ function! kickfix#QFilterContent(rx, filter_in) abort
   echom printf('Removed: %d, Kept: %d, Nobuf: %d', removed, kept, nobuf)
   call setqflist(nqf)
   close
+  if win_id2win(winid)
+    call win_gotoid(winid)
+  endif
 endfun
 
 " QDeleteLine {{{1
