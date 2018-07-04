@@ -8,7 +8,9 @@ command! -nargs=1 -bar -bang QFilterContent
 
 command! -bar QInfo
       \ echo printf("%d File(s), %d Line(s)",
-      \   len(eval('{'.join(uniq(map(getqflist(),'v:val.bufnr')),':1,').':1}')),
+      \   len(eval('{'.
+      \     join(uniq(map(getqflist(),'v:val.bufnr'),'N'),':1,').
+      \     ':1}')),
       \   len(getqflist()))
 
 command! -range -bar QDeleteLine

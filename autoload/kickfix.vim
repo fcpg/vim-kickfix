@@ -44,6 +44,7 @@ function! kickfix#QFilterContent(rx, filter_in) abort
   let nqf = []
   let g:oldqf = getqflist()
   let [kept, removed, nobuf] = [0, 0, 0]
+  1split
   for f in g:oldqf
     if !get(f, 'bufnr', 0)
       let nobuf += 1
@@ -60,6 +61,7 @@ function! kickfix#QFilterContent(rx, filter_in) abort
   endfor
   echom printf('Removed: %d, Kept: %d, Nobuf: %d', removed, kept, nobuf)
   call setqflist(nqf)
+  close
 endfun
 
 " QDeleteLine {{{1
