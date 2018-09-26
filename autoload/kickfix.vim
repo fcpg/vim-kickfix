@@ -68,6 +68,18 @@ function! kickfix#QFilterContent(rx, filter_in) abort
   endif
 endfun
 
+" QInfo {{{1
+" Print number of files and number of errors in the quickfix
+function! kickfix#QInfo() abort
+  let files = empty(getqflist())
+        \ ? {}
+        \ : eval('{'.
+        \ join(uniq(map(getqflist(),'v:val.bufnr'),'N'),':1,').
+        \ ':1}')
+
+  echo printf("%d File(s), %d Line(s)", len(files), len(getqflist()))
+endfunction
+
 " QDeleteLine {{{1
 " Remove line(s) from quickfix
 function! kickfix#QDeleteLine(...) abort
