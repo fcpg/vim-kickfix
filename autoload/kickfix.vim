@@ -16,11 +16,11 @@ endfun
 
 " QFilterName {{{1
 " Filter in/out quickfix entries by filename
-function! kickfix#QFilterName(rx, filter_in) abort
-  let nqf = []
-  let g:oldqf = getqflist()
+function! s:FilterName(list, rx, filter_in) abort
+  let newlist = []
+  let oldlist = a:list
   let [kept, removed, nobuf] = [0, 0, 0]
-  for f in g:oldqf
+  for f in oldlist
     if !get(f, 'bufnr', 0)
       let nobuf += 1
       continue
@@ -28,15 +28,23 @@ function! kickfix#QFilterName(rx, filter_in) abort
     let bufname = bufname(f.bufnr)
     if (a:filter_in && match(bufname, a:rx) != -1)
           \ || (!a:filter_in && match(bufname, a:rx) == -1)
-      call add(nqf, copy(f))
+      call add(newlist, copy(f))
       let kept += 1
     else
       let removed += 1
     endif
   endfor
   echom printf('Removed: %d, Kept: %d, Nobuf: %d', removed, kept, nobuf)
-  call setqflist(nqf)
+  return newlist
+endfunction
+
+function! kickfix#QFilterName(rx, filter_in) abort
+  call setqflist(s:FilterName(getqflist(), a:rx, a:filter_in))
 endfun
+
+function! kickfix#LocFilterName(rx, filter_in) abort
+  call setloclist(0, s:FilterName(getloclist(0), a:rx, a:filter_in))
+endfunction
 
 " QFilterContent {{{1
 " Filter in/out quickfix entries by content

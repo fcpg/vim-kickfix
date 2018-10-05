@@ -2,6 +2,8 @@
 
 command! -nargs=1 -bar -bang QFilterName
       \ call kickfix#QFilterName(<q-args>, '<bang>'=='')
+command! -nargs=1 -bar -bang LocFilterName
+      \ call kickfix#LocFilterName(<q-args>, '<bang>'=='')
 
 command! -nargs=1 -bar -bang QFilterContent
       \ call kickfix#QFilterContent(<q-args>, '<bang>'=='')
