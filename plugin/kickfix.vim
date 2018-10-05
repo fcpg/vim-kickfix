@@ -16,5 +16,7 @@ command! -range -bar QDeleteLine
       \ call kickfix#QDeleteLine(<line1>, <line2>)
 
 command! -bar -nargs=1 -complete=file QLoad
-      \ call kickfix#QLoad(<q-args>)
+      \ call kickfix#QLoad(<q-args>, 0)
+command! -bar -nargs=1 -complete=file LocLoad
+      \ call kickfix#QLoad(<q-args>, 1)
 

@@ -125,10 +125,11 @@ endfun
 
 " QLoad {{{1
 " Load saved quickfix buffer
-function! kickfix#QLoad(file) abort
+function! kickfix#QLoad(file, loc) abort
+  let cmd = a:loc ? "lfile" : "cfile"
   let oldefm = &efm
   setlocal efm+=%f\|%l\ col\ %c\|%m
-  exe "cfile" a:file
+  exe cmd a:file
   let &efm = oldefm
 endfun
 
