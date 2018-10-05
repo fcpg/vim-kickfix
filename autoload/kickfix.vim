@@ -100,6 +100,8 @@ endfunction
 " QDeleteLine {{{1
 " Remove line(s) from quickfix
 function! kickfix#QDeleteLine(...) abort
+  let isloc = !empty(getloclist(0))
+  let curlist = isloc ? getloclist(0) : getqflist()
   if a:0 == 1 && type(a:1) == type("")
     " called from g@
     let [l1, l2] = [line("'["), line("']")]
@@ -111,10 +113,13 @@ function! kickfix#QDeleteLine(...) abort
     return
   endif
   let curline = line('.')
-  let g:oldqf = getqflist()
-  let nqf = copy(g:oldqf)
-  call remove(nqf, l1 - 1, l2 - 1)
-  call setqflist(nqf)
+  let newlist = copy(curlist)
+  call remove(newlist, l1 - 1, l2 - 1)
+  if isloc
+    call setloclist(0, newlist)
+  else
+    call setqflist(newlist)
+  endif
   call cursor(curline, 0)
 endfun
 
