@@ -48,13 +48,13 @@ endfunction
 
 " QFilterContent {{{1
 " Filter in/out quickfix entries by content
-function! kickfix#QFilterContent(rx, filter_in) abort
-  let nqf = []
-  let g:oldqf = getqflist()
+function! s:FilterContent(list, rx, filter_in) abort
+  let newlist = []
+  let oldlist = a:list
   let [kept, removed, nobuf] = [0, 0, 0]
   let winid = win_getid()
   1split
-  for f in g:oldqf
+  for f in oldlist
     if !get(f, 'bufnr', 0)
       let nobuf += 1
       continue
@@ -62,19 +62,27 @@ function! kickfix#QFilterContent(rx, filter_in) abort
     exe 'noauto b' f.bufnr
     if (a:filter_in && search(a:rx, 'wn'))
           \ || (!a:filter_in && !search(a:rx, 'wn'))
-      call add(nqf, copy(f))
+      call add(newlist, copy(f))
       let kept += 1
     else
       let removed += 1
     endif
   endfor
   echom printf('Removed: %d, Kept: %d, Nobuf: %d', removed, kept, nobuf)
-  call setqflist(nqf)
   close
   if win_id2win(winid)
     call win_gotoid(winid)
   endif
+  return newlist
+endfunction
+
+function! kickfix#QFilterContent(rx, filter_in) abort
+  call setqflist(s:FilterContent(getqflist(), a:rx, a:filter_in))
 endfun
+
+function! kickfix#LocFilterContent(rx, filter_in) abort
+  call setloclist(0, s:FilterContent(getloclist(0), a:rx, a:filter_in))
+endfunction
 
 " QInfo {{{1
 " Print number of files and number of errors in the quickfix

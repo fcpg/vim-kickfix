@@ -7,6 +7,8 @@ command! -nargs=1 -bar -bang LocFilterName
 
 command! -nargs=1 -bar -bang QFilterContent
       \ call kickfix#QFilterContent(<q-args>, '<bang>'=='')
+command! -nargs=1 -bar -bang LocFilterContent
+      \ call kickfix#LocFilterContent(<q-args>, '<bang>'=='')
 
 command! -bar QInfo call kickfix#QInfo()
 
